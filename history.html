@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>history</title>
+    <style>
+        .current{
+            height: 200px;
+            width: 300px;
+        }
+        .page1{
+            background-color: antiquewhite;
+        }
+        .page2{
+            background-color: aquamarine;
+        }
+        .page3{
+            background-color:lightblue;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <ul class="parentUl">
+            <li class="page1">page1</li>
+            <li class="page2">page2</li>
+            <li class="page3">page3</li>
+        </ul>
+    </div>
+    <div class="current">
+        current
+    </div>
+    <script type="text/javascript">
+        window.onload = function(){
+            window.onpopstate = function(e){
+                console.log("popstate"+e);
+            };
+            window.onhashchange = function(e){
+                console.log("hashchange"+e);
+            };
+            let curDiv = document.querySelector(".current");
+            document.querySelector(".parentUl").addEventListener('click',function(e){
+                console.log(e.target.className);
+                if(this == e.target){
+                }else{
+                    let claN = e.target.className;
+                    window.history.pushState({},'','/'+claN);
+                    curDiv.className = 'current ' + claN;
+                    curDiv.innerHTML = claN;
+                }
+            });
+        }
+    </script>
+</body>
+</html>
